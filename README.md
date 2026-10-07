@@ -286,9 +286,9 @@ O design do DayPlannio utiliza uma paleta em tons de verde-azulado, com cor prin
 ### 4.2 Modelo de navegação
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/DayPlannio/Documentos/master/imagens/modelo-navegacao.png" alt="Figura 3 – Modelo de Navegação do DayPlannio" width="60%">
+  <img src="https://raw.githubusercontent.com/DayPlannio/Documentos/master/imagens/modelo-navegacao.png" alt="Figura 7 – Modelo de Navegação do DayPlannio" width="60%">
   <br>
-  <em>Figura 3 – Modelo de Navegação do DayPlannio</em>
+  <em>Figura 7 – Modelo de Navegação do DayPlannio</em>
 </p>
 
 ---
