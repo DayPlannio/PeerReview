@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DayPlannio.App.Views.CustomTabBar">
+
+    <Grid
+        ColumnDefinitions="*,*,*,*,*,*"
+        BackgroundColor="White"
+        HeightRequest="70"
+        Padding="5">
+
+        <Border
+            Grid.Column="0"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 12"
+            BackgroundColor="{Binding AgendaBackground}"
+            Padding="10">
+
+            <VerticalStackLayout
+                Spacing="2"
+                HorizontalOptions="Center">
+
+                <VerticalStackLayout.GestureRecognizers>
+
+                    <TapGestureRecognizer
+                        Command="{Binding AgendaCommand}"/>
+
+                </VerticalStackLayout.GestureRecognizers>
+
+                <Image
+                    Source="icon_agenda.png"
+                    HeightRequest="24"
+                    WidthRequest="24"
+                    HorizontalOptions="Center"/>
+
+                <Label
+                    Text="Agenda"
+                    FontSize="10"
+                    HorizontalOptions="Center"
+                    TextColor="{Binding AgendaTextColor}"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+        <Border
+            Grid.Column="1"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 12"
+            BackgroundColor="{Binding ServicosBackground}"
+            Padding="10">
+
+            <VerticalStackLayout
+                Spacing="2"
+                HorizontalOptions="Center">
+
+                <VerticalStackLayout.GestureRecognizers>
+
+                    <TapGestureRecognizer
+                        Command="{Binding ServicosCommand}"/>
+
+                </VerticalStackLayout.GestureRecognizers>
+
+                <Image
+                    Source="icon_servicos.png"
+                    HeightRequest="24"
+                    WidthRequest="24"
+                    HorizontalOptions="Center"/>
+
+                <Label
+                    Text="Serviços"
+                    FontSize="10"
+                    HorizontalOptions="Center"
+                    TextColor="{Binding ServicosTextColor}"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+        <Border
+            Grid.Column="2"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 12"
+            BackgroundColor="{Binding MetricasBackground}"
+            Padding="10">
+
+            <VerticalStackLayout
+                Spacing="2"
+                HorizontalOptions="Center">
+
+                <VerticalStackLayout.GestureRecognizers>
+
+                    <TapGestureRecognizer
+                        Command="{Binding MetricasCommand}"/>
+
+                </VerticalStackLayout.GestureRecognizers>
+
+                <Image
+                    Source="icon_metricas.png"
+                    HeightRequest="24"
+                    WidthRequest="24"
+                    HorizontalOptions="Center"/>
+
+                <Label
+                    Text="Métricas"
+                    FontSize="10"
+                    HorizontalOptions="Center"
+                    TextColor="{Binding MetricasTextColor}"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+        <Border
+            Grid.Column="3"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 12"
+            BackgroundColor="{Binding ClientesBackground}"
+            Padding="10">
+
+            <VerticalStackLayout
+                Spacing="2"
+                HorizontalOptions="Center">
+
+                <VerticalStackLayout.GestureRecognizers>
+
+                    <TapGestureRecognizer
+                        Command="{Binding ClientesCommand}"/>
+
+                </VerticalStackLayout.GestureRecognizers>
+
+                <Image
+                    Source="icon_clientes.png"
+                    HeightRequest="24"
+                    WidthRequest="24"
+                    HorizontalOptions="Center"/>
+
+                <Label
+                    Text="Clientes"
+                    FontSize="10"
+                    HorizontalOptions="Center"
+                    TextColor="{Binding ClientesTextColor}"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+        <Border
+            Grid.Column="4"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 12"
+            BackgroundColor="{Binding FinanceiroBackground}"
+            Padding="10">
+
+            <VerticalStackLayout
+                Spacing="2"
+                HorizontalOptions="Center">
+
+                <VerticalStackLayout.GestureRecognizers>
+
+                    <TapGestureRecognizer
+                        Command="{Binding FinanceiroCommand}"/>
+
+                </VerticalStackLayout.GestureRecognizers>
+
+                <Image
+                    Source="icon_dinheiro.png"
+                    HeightRequest="24"
+                    WidthRequest="24"
+                    HorizontalOptions="Center"/>
+
+                <Label
+                    Text="Fin"
+                    FontSize="10"
+                    HorizontalOptions="Center"
+                    TextColor="{Binding FinanceiroTextColor}"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+        <Border
+            Grid.Column="5"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 12"
+            BackgroundColor="{Binding PerfilBackground}"
+            Padding="10">
+
+            <VerticalStackLayout
+                Spacing="2"
+                HorizontalOptions="Center">
+
+                <VerticalStackLayout.GestureRecognizers>
+
+                    <TapGestureRecognizer
+                        Command="{Binding PerfilCommand}"/>
+
+                </VerticalStackLayout.GestureRecognizers>
+
+                <Image
+                    Source="icon_perfil.png"
+                    HeightRequest="24"
+                    WidthRequest="24"
+                    HorizontalOptions="Center"/>
+
+                <Label
+                    Text="Perfil"
+                    FontSize="10"
+                    HorizontalOptions="Center"
+                    TextColor="{Binding PerfilTextColor}"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+    </Grid>
+
+</ContentView>

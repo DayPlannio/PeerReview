@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DayPlannio.App.Views.Login"
+    BackgroundColor="#F5F5F5"
+    NavigationPage.HasNavigationBar="False"
+    Title="Login">
+
+    <VerticalStackLayout Padding="15">
+
+        <Border
+            BackgroundColor="{StaticResource White}"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 15"
+            Padding="25"
+            Margin="0,45,0,0">
+
+            <VerticalStackLayout
+                VerticalOptions="Center"
+                Spacing="8">
+
+                <Image
+                    Source="logo.png"
+                    HeightRequest="80"
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,5"/>
+
+                <Label FontSize="14" TextColor="{StaticResource LabelColor}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="E-mail " />
+                            <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Border
+                    BackgroundColor="#EBEBEB"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 10">
+
+                    <Entry
+                        Placeholder="Digite seu e-mail"
+                        Keyboard="Email"
+                        Text="{Binding Email}"/>
+                </Border>
+
+                <Label FontSize="14" TextColor="{StaticResource LabelColor}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Senha " />
+                            <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Border
+                    BackgroundColor="#EBEBEB"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 10">
+
+                    <Grid ColumnDefinitions="*,40">
+
+                        <Entry
+                            Grid.Column="0"
+                            Placeholder="Digite sua senha"
+                            IsPassword="{Binding SenhaOculta}"
+                            Text="{Binding Senha}"
+                            BackgroundColor="Transparent"/>
+
+                        <ImageButton
+                            Grid.Column="1"
+                            Source="{Binding IconeSenha}"
+                            HeightRequest="16"
+                            WidthRequest="16"
+                            MinimumHeightRequest="0"
+                            MinimumWidthRequest="0"
+                            Padding="0"
+                            Margin="10,0,0,0"
+                            VerticalOptions="Center"
+                            BackgroundColor="Transparent"
+                            Command="{Binding MostrarOcultarSenhaCommand}"/>
+                    </Grid>
+                </Border>
+
+                <Label
+                    Text="{Binding ErroMensagem}"
+                    TextColor="Red"
+                    IsVisible="{Binding ErroVisivel}"/>
+
+                <HorizontalStackLayout HorizontalOptions="End" Spacing="4" Margin="0,4,0,4">
+                    <Label Text="&#9432;" FontSize="12" TextColor="#4DB6AC" VerticalOptions="Center"/>
+                    <Label FontSize="11"
+                           FontAttributes="Italic"
+                           TextColor="#6E7978"
+                           VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Campos com " />
+                                <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold,Italic" />
+                                <Span Text="  são obrigatórios" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <Button
+                    Text="Entrar"
+                    TextColor="White"
+                    Command="{Binding LoginCommand}"
+                    CornerRadius="20">
+
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#006260" Offset="0.0"/>
+                            <GradientStop Color="#1E7C7A" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
+                <Label
+                    Text="OU"
+                    HorizontalOptions="Center"
+                    TextColor="#6E7978"
+                    FontSize="12"
+                    Margin="0,10,0,0"/>
+
+                <HorizontalStackLayout
+                    HorizontalOptions="Center"
+                    Spacing="5">
+
+                    <Label
+                        Text="Não tem uma conta?"
+                        TextColor="#3E4948"
+                        FontSize="13"/>
+
+                    <Label
+                        Text="Cadastre-se"
+                        TextColor="{StaticResource PrimaryColor}"
+                        FontAttributes="Bold"
+                        FontSize="13">
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding CadastroCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout
+                    HorizontalOptions="Center"
+                    Spacing="5">
+
+                    <Label
+                        Text="Esqueceu a senha?"
+                        TextColor="#3E4948"
+                        FontSize="13"/>
+
+                    <Label
+                        Text="Redefinir Senha"
+                        TextColor="{StaticResource PrimaryColor}"
+                        FontAttributes="Bold"
+                        FontSize="13">
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding RedefinirSenhaCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

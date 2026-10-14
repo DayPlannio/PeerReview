@@ -1,0 +1,153 @@
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using DayPlannio.App.Services;
+
+namespace DayPlannio.App.ViewModels;
+
+public partial class NovaSenhaViewModel : ObservableObject
+{
+    private readonly string _email;
+    private readonly string _codigo;
+    private readonly Page _page;
+
+    public NovaSenhaViewModel(string email, string codigo, Page page)
+    {
+        _email = email;
+        _codigo = codigo;
+        _page = page;
+    }
+
+    [ObservableProperty]
+    private string novaSenha;
+
+    [ObservableProperty]
+    private string confirmarSenha;
+
+    [ObservableProperty]
+    private string erroMensagem;
+
+    [ObservableProperty]
+    private bool erroVisivel;
+    [ObservableProperty]
+    private bool senhaOculta = true;
+
+    [ObservableProperty]
+    private bool confirmarSenhaOculta = true;
+
+    [ObservableProperty]
+    private bool reqTamanho;
+
+    [ObservableProperty]
+    private bool reqMaiusculo;
+
+    [ObservableProperty]
+    private bool reqMinusculo;
+
+    [ObservableProperty]
+    private bool reqEspecial;
+
+    [ObservableProperty]
+    private bool reqNumero;
+
+    public bool SenhasDiferentes =>
+        !string.IsNullOrEmpty(ConfirmarSenha) && NovaSenha != ConfirmarSenha;
+
+    partial void OnNovaSenhaChanged(string value)
+    {
+        OnPropertyChanged(nameof(SenhasDiferentes));
+
+        value ??= "";
+
+        ReqTamanho = value.Length >= 6;
+        ReqMaiusculo = value.Any(char.IsUpper);
+        ReqMinusculo = value.Any(char.IsLower);
+        ReqNumero = value.Any(char.IsDigit);
+        ReqEspecial = value.Any(c => !char.IsLetterOrDigit(c));
+    }
+
+    partial void OnConfirmarSenhaChanged(string value)
+    {
+        OnPropertyChanged(nameof(SenhasDiferentes));
+    }
+
+    public string IconeSenha =>
+        SenhaOculta ? "icon_olho_aberto.png" : "icon_olho_fechado.png";
+
+    public string IconeConfirmarSenha =>
+        ConfirmarSenhaOculta ? "icon_olho_aberto.png" : "icon_olho_fechado.png";
+
+
+    [RelayCommand]
+    private async Task Salvar()
+    {
+        try
+        {
+            ErroVisivel = false;
+
+            if (string.IsNullOrWhiteSpace(NovaSenha) ||
+                string.IsNullOrWhiteSpace(ConfirmarSenha))
+                throw new Exception("Preencha todos os campos.");
+
+            if (NovaSenha != ConfirmarSenha)
+                throw new Exception("As senhas não coincidem.");
+
+            if (!ReqTamanho ||
+                !ReqMaiusculo ||
+                !ReqMinusculo ||
+                !ReqNumero ||
+                !ReqEspecial)
+                throw new Exception("A senha não atende aos requisitos: mínimo 6 caracteres, com maiúscula, minúscula, número e caractere especial.");
+
+            bool sucesso;
+            string mensagem = "";
+            try
+            {
+                (sucesso, mensagem) = await UsuarioService.RedefinirSenha(
+                    _email,
+                    _codigo,
+                    NovaSenha,
+                    ConfirmarSenha);
+            }
+            catch
+            {
+                mensagem = "Código inválido ou expirado.";
+                sucesso = false;
+            }
+
+            if (sucesso)
+            {
+                await _page.DisplayAlertAsync(
+                    "Sucesso",
+                    "Senha redefinida com sucesso!",
+                    "OK");
+
+                await _page.Navigation.PopToRootAsync();
+            }
+            else
+            {
+                throw new Exception(string.IsNullOrWhiteSpace(mensagem) ? "Código inválido ou expirado." : mensagem);
+            }
+        }
+        catch (Exception ex)
+        {
+            ErroMensagem = ex.Message;
+            ErroVisivel = true;
+        }
+    }
+
+    [RelayCommand]
+    private void MostrarOcultarSenha()
+    {
+        SenhaOculta = !SenhaOculta;
+
+        OnPropertyChanged(nameof(IconeSenha));
+    }
+
+    [RelayCommand]
+    private void MostrarOcultarConfirmarSenha()
+    {
+        ConfirmarSenhaOculta = !ConfirmarSenhaOculta;
+
+        OnPropertyChanged(nameof(IconeConfirmarSenha));
+    }
+}

@@ -1,0 +1,444 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:DayPlannio.App.Views"
+    x:Class="DayPlannio.App.Views.Agendamentos"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="#F3F3F3">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.Row="0">
+
+            <VerticalStackLayout Spacing="0">
+
+                <VerticalStackLayout
+                    Padding="16,18,16,8"
+                    Spacing="12">
+
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <Label
+                            Text="Agenda"
+                            HorizontalOptions="Center"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#006260"
+                            VerticalOptions="Center"/>
+
+                        <Grid Grid.Column="1"
+                              WidthRequest="30"
+                              HeightRequest="30"
+                              VerticalOptions="Center"
+                              HorizontalOptions="Center">
+                            <Label
+                                Text="&#x1F514;"
+                                FontSize="18"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+                            <Border
+                                BackgroundColor="#BA1A1A"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10"
+                                Padding="4,1"
+                                IsVisible="{Binding TemNotificacoes}"
+                                HorizontalOptions="End"
+                                VerticalOptions="Start"
+                                Margin="0,-2,-4,0">
+                                <Label
+                                    Text="{Binding TotalNaoLidas}"
+                                    TextColor="White"
+                                    FontSize="9"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
+                            </Border>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnNotificacoesClicked"/>
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                    </Grid>
+
+                    <VerticalStackLayout Spacing="1">
+
+                        <Label
+                            Text="{Binding Mes}"
+                            FontSize="22"
+                            FontAttributes="Bold"
+                            TextColor="#1D1D1D"/>
+
+                        <Label
+                            Text="{Binding Resumo}"
+                            FontSize="12"
+                            TextColor="#5F5F5F"/>
+
+                    </VerticalStackLayout>
+
+                    <CollectionView
+                        ItemsSource="{Binding Dias}"
+                        SelectionMode="None"
+                        HeightRequest="78">
+
+                        <CollectionView.ItemsLayout>
+
+                            <LinearItemsLayout
+                                Orientation="Horizontal"
+                                ItemSpacing="8"/>
+
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Border
+                                    WidthRequest="62"
+                                    HeightRequest="74"
+                                    BackgroundColor="{Binding CorFundo}"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 14">
+
+                                    <Border.GestureRecognizers>
+
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelecionarDiaCommand}"
+                                            CommandParameter="{Binding .}"/>
+
+                                    </Border.GestureRecognizers>
+
+                                    <VerticalStackLayout
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"
+                                        Spacing="2">
+
+                                        <Label
+                                            Text="{Binding DiaSemana}"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            TextColor="{Binding CorTexto}"/>
+
+                                        <Label
+                                            Text="{Binding DiaNumero}"
+                                            FontSize="15"
+                                            FontAttributes="Bold"
+                                            TextColor="{Binding CorTexto}"/>
+
+                                    </VerticalStackLayout>
+
+                                </Border>
+
+                            </DataTemplate>
+
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                    <Grid ColumnDefinitions="*,Auto"
+                          VerticalOptions="Center">
+
+                        <Label
+                            Grid.Column="0"
+                            Text="{Binding TituloLista}"
+                            VerticalOptions="Center"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            TextColor="#1D1D1D"/>
+
+                        <Border
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center"
+                            BackgroundColor="#8AD7D2"
+                            Padding="12,5"
+                            Margin="0,0,0,0"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18">
+
+                            <Label
+                                Text="{Binding TotalAgendados}"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="#006260"/>
+
+                        </Border>
+
+                    </Grid>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout
+                    Margin="16,0,16,100"
+                    Spacing="12"
+                    BindableLayout.ItemsSource="{Binding Agendamentos}">
+
+                    <BindableLayout.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Border
+                                BackgroundColor="#FAFAFA"
+                                StrokeThickness="0"
+                                Padding="0"
+                                StrokeShape="RoundRectangle 20">
+
+                                <Grid ColumnDefinitions="5,*">
+
+                                    <Border
+                                        BackgroundColor="#006260"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 20,0,0,20"/>
+
+                                    <Grid
+                                        Grid.Column="1"
+                                        Padding="16"
+                                        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                                        ColumnDefinitions="*,Auto">
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.ColumnSpan="2"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Hora}"
+                                            FontSize="16"
+                                            FontAttributes="Bold"
+                                            TextColor="#006260"/>
+
+                                        <HorizontalStackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Spacing="10"
+                                            HorizontalOptions="End">
+
+                                            <ImageButton
+                                                Source="icon_editar.png"
+                                                HeightRequest="16"
+                                                WidthRequest="16"
+                                                MinimumHeightRequest="0"
+                                                MinimumWidthRequest="0"
+                                                Padding="0"
+                                                Margin="10,0,0,0"
+                                                VerticalOptions="Center"
+                                                IsVisible="{Binding PodeEditar}"
+                                                BackgroundColor="Transparent"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditarCommand}"
+                                                CommandParameter="{Binding .}"/>
+
+                                            <ImageButton
+                                                Source="icon_excluir.png"
+                                                HeightRequest="16"
+                                                WidthRequest="16"
+                                                MinimumHeightRequest="0"
+                                                MinimumWidthRequest="0"
+                                                Padding="0"
+                                                Margin="10,0,0,0"
+                                                VerticalOptions="Center"
+                                                BackgroundColor="Transparent"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ExcluirCommand}"
+                                                CommandParameter="{Binding .}"/>
+
+                                        </HorizontalStackLayout>
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            Margin="0,8,0,0"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Servico}"
+                                            FontSize="12"
+                                            TextColor="#666666"/>
+
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            Margin="0,14,0,0"
+                                            Text="{Binding Cliente}"
+                                            FontSize="14"
+                                            FontAttributes="Bold"
+                                            TextColor="#1D1D1D"/>
+
+                                        <Border
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            Margin="0,12,0,0"
+                                            Padding="12,5"
+                                            BackgroundColor="{Binding CorFundoStatus}"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 16">
+
+                                            <Label
+                                                Text="{Binding StatusTexto}"
+                                                FontSize="10"
+                                                FontAttributes="Bold"
+                                                TextColor="{Binding CorStatus}"/>
+
+                                        </Border>
+
+                                        <HorizontalStackLayout
+                                            Grid.Row="3"
+                                            Grid.ColumnSpan="2"
+                                            Margin="0,12,0,0"
+                                            Spacing="6">
+
+                                            <Image
+                                                Source="icon_localizacao.png"
+                                                WidthRequest="14"
+                                                HeightRequest="14"/>
+
+                                            <Label
+                                                Text="{Binding Endereco}"
+                                                FontSize="12"
+                                                TextColor="#4F4F4F"/>
+
+                                        </HorizontalStackLayout>
+
+                                        <HorizontalStackLayout
+                                            Grid.Row="4"
+                                            Grid.ColumnSpan="2"
+                                            Margin="0,5,0,0"
+                                            Spacing="6">
+
+                                            <Image
+                                                Source="icon_telefone.png"
+                                                WidthRequest="14"
+                                                HeightRequest="14"/>
+
+                                            <Label
+                                                Text="{Binding Telefone}"
+                                                FontSize="12"
+                                                TextColor="#4F4F4F"/>
+
+                                        </HorizontalStackLayout>
+
+                                        <HorizontalStackLayout
+                                            Grid.Row="5"
+                                            Grid.ColumnSpan="2"
+                                            Margin="0,5,0,0"
+                                            Spacing="6"
+                                            IsVisible="{Binding TemObservacoes}">
+
+                                            <Image
+                                                Source="icon_observacao.png"
+                                                WidthRequest="14"
+                                                HeightRequest="14"/>
+
+                                            <Label
+                                                Text="{Binding Observacoes}"
+                                                FontSize="12"
+                                                TextColor="#4F4F4F"/>
+
+                                        </HorizontalStackLayout>
+
+                                        <HorizontalStackLayout
+                                            Grid.Row="6"
+                                            Grid.ColumnSpan="2"
+                                            Margin="0,5,0,0"
+                                            Spacing="6"
+                                            IsVisible="{Binding TemTempo}">
+
+                                            <Image
+                                                Source="icon_relogio.png"
+                                                WidthRequest="14"
+                                                HeightRequest="14"/>
+
+                                            <Label
+                                                Text="{Binding TempoTexto}"
+                                                FontSize="12"
+                                                FontAttributes="Bold"
+                                                TextColor="#B25E09"/>
+
+                                        </HorizontalStackLayout>
+
+                                        <HorizontalStackLayout
+                                            Grid.Row="7"
+                                            Grid.ColumnSpan="2"
+                                            Margin="0,18,0,0"
+                                            HorizontalOptions="Center"
+                                            Spacing="10">
+
+                                            <Button
+                                                Text="CONCLUIR"
+                                                WidthRequest="110"
+                                                HeightRequest="38"
+                                                CornerRadius="19"
+                                                FontSize="11"
+                                                FontAttributes="Bold"
+                                                TextColor="White"
+                                                BackgroundColor="#1E7C7A"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ConcluirCommand}"
+                                                CommandParameter="{Binding .}"
+                                                IsVisible="{Binding PodeConcluir}"/>
+
+                                            <Button
+                                                Text="CANCELAR"
+                                                WidthRequest="110"
+                                                HeightRequest="38"
+                                                CornerRadius="19"
+                                                FontSize="11"
+                                                FontAttributes="Bold"
+                                                TextColor="#C77700"
+                                                BackgroundColor="#FFE1B3"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CancelarCommand}"
+                                                CommandParameter="{Binding .}"
+                                                IsVisible="{Binding PodeCancelar}"/>
+
+                                        </HorizontalStackLayout>
+
+                                    </Grid>
+
+                                </Grid>
+
+                            </Border>
+
+                        </DataTemplate>
+
+                    </BindableLayout.ItemTemplate>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+        <views:CustomTabBar Grid.Row="1"/>
+
+        <Button
+            Grid.Row="0"
+            Text="+"
+            FontSize="20"
+            TextColor="White"
+            WidthRequest="48"
+            HeightRequest="48"
+            CornerRadius="24"
+            VerticalOptions="End"
+            HorizontalOptions="End"
+            Margin="0,0,18,18"
+            ZIndex="10"
+            Command="{Binding NovoAgendamentoCommand}">
+
+            <Button.Background>
+
+                <LinearGradientBrush
+                    StartPoint="0,0"
+                    EndPoint="1,0">
+
+                    <GradientStop
+                        Color="#006260"
+                        Offset="0"/>
+
+                    <GradientStop
+                        Color="#1E7C7A"
+                        Offset="1"/>
+
+                </LinearGradientBrush>
+
+            </Button.Background>
+
+        </Button>
+
+        <views:ToastBanner x:Name="Toast" Grid.Row="0" Grid.RowSpan="2"/>
+
+    </Grid>
+
+</ContentPage>

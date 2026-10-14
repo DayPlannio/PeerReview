@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+
+
+    x:Class="DayPlannio.App.Views.ConfirmarCodigo"
+    BackgroundColor="#F5F5F5"
+    NavigationPage.HasNavigationBar="False"
+    Title="Confirmar Código">
+
+    <ContentPage.Resources>
+        <Style x:Key="LinkButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="TextColor" Value="#006260" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="Padding" Value="12,6" />
+            <Setter Property="BorderWidth" Value="0" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup Name="CommonStates">
+                        <VisualState Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#006260" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#1E7C7A" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#1E7C7A" />
+                                <Setter Property="Opacity" Value="0.7" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#A0A0A0" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup Name="CommonStates">
+                        <VisualState Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="1.03" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout Padding="15">
+
+        <Border
+            BackgroundColor="{StaticResource White}"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 15"
+            Padding="25"
+            Margin="0,45,0,0">
+
+            <VerticalStackLayout Spacing="8">
+
+                <Image
+                    Source="logo.png"
+                    HeightRequest="80"
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,5"/>
+
+                <Label
+                    Text="Digite o código enviado para o seu e-mail:"
+                    FontSize="14"
+                    TextColor="{StaticResource LabelColor}"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"/>
+
+                <Label
+                    Text="{Binding EmailMascarado}"
+                    FontSize="15"
+                    FontAttributes="Bold"
+                    TextColor="#006260"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"/>
+
+                <Button
+    Text="Editar e-mail"
+    Style="{StaticResource LinkButtonStyle}"
+    HorizontalOptions="Center"
+    Command="{Binding EditarEmailCommand}"/>
+
+                <Label FontSize="14" TextColor="{StaticResource LabelColor}" Margin="0,10,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Código " />
+                            <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Border
+                    BackgroundColor="#EBEBEB"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 10">
+
+                    <Entry
+                        Placeholder="Digite o código"
+                        Keyboard="Numeric"
+                        MaxLength="6"
+                        Text="{Binding Codigo}"/>
+                </Border>
+
+                <Label
+                    Text="{Binding ErroMensagem}"
+                    TextColor="Red"
+                    IsVisible="{Binding ErroVisivel}"/>
+
+                <HorizontalStackLayout HorizontalOptions="End" Spacing="4" Margin="0,0,0,4">
+                    <Label Text="&#9432;" FontSize="12" TextColor="#4DB6AC" VerticalOptions="Center"/>
+                    <Label FontSize="11"
+                           FontAttributes="Italic"
+                           TextColor="#6E7978"
+                           VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Campos com " />
+                                <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold,Italic" />
+                                <Span Text="  são obrigatórios" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <Button
+                    Text="Confirmar"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding ConfirmarCommand}">
+
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#006260" Offset="0.0"/>
+                            <GradientStop Color="#1E7C7A" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
+                <Button
+    Text="{Binding TextoReenviar}"
+    Style="{StaticResource LinkButtonStyle}"
+    HorizontalOptions="Center"
+    IsEnabled="{Binding PodeReenviar}"
+    Command="{Binding ReenviarCommand}"/>
+
+                <Button
+                    Text="Voltar"
+                    Style="{StaticResource LinkButtonStyle}"
+                    FontSize="14"
+                    Command="{Binding VoltarCommand}"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+    </VerticalStackLayout>
+
+</ContentPage>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DayPlannio.App.Views.RedefinirSenha"
+    BackgroundColor="#F5F5F5"
+    NavigationPage.HasNavigationBar="False"
+    Title="RedefinirSenha">
+
+    <VerticalStackLayout Padding="15">
+
+        <Border
+            BackgroundColor="{StaticResource White}"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 15"
+            Padding="25"
+            Margin="0,45,0,0">
+
+            <VerticalStackLayout
+                VerticalOptions="Center"
+                Spacing="8">
+
+                <Image
+                    Source="logo.png"
+                    HeightRequest="80"
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,5"/>
+
+                <Label FontSize="14" TextColor="{StaticResource LabelColor}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="E-mail " />
+                            <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Border
+                    BackgroundColor="#EBEBEB"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 10">
+
+                    <Entry
+                        Placeholder="Digite seu e-mail"
+                        Keyboard="Email"
+                        Text="{Binding Email}"/>
+                </Border>
+
+                <Label FontSize="14" TextColor="{StaticResource LabelColor}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Confirmar e-mail " />
+                            <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Border
+                    BackgroundColor="#EBEBEB"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 10">
+
+                    <Entry
+                        Placeholder="Repita seu e-mail"
+                        Keyboard="Email"
+                        Text="{Binding ConfirmarEmail}"/>
+                </Border>
+
+                <Label
+                    Text="{Binding ErroMensagem}"
+                    TextColor="Red"
+                    IsVisible="{Binding ErroVisivel}"/>
+
+                <Label
+                    Text="{Binding AvisoMensagem}"
+                    TextColor="#006260"
+                    IsVisible="{Binding AvisoVisivel}"/>
+
+                <HorizontalStackLayout HorizontalOptions="End" Spacing="4" Margin="0,0,0,4">
+                    <Label Text="&#9432;" FontSize="12" TextColor="#4DB6AC" VerticalOptions="Center"/>
+                    <Label FontSize="11"
+                           FontAttributes="Italic"
+                           TextColor="#6E7978"
+                           VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Campos com " />
+                                <Span Text="*" TextColor="#4DB6AC" FontAttributes="Bold,Italic" />
+                                <Span Text="  são obrigatórios" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <Button
+                    Text="Enviar"
+                    TextColor="White"
+                    Command="{Binding RedefinirCommand}"
+                    CornerRadius="20">
+
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#006260" Offset="0.0"/>
+                            <GradientStop Color="#1E7C7A" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
+                <Button
+                    Text="Voltar"
+                    TextColor="#006260"
+                    BackgroundColor="Transparent"
+                    FontSize="14"
+                    Command="{Binding VoltarCommand}"/>
+
+            </VerticalStackLayout>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>
